@@ -1,5 +1,3 @@
-const { white } = require("colors");
-
 const container = document.getElementById('root');
 const ajax = new XMLHttpRequest();
 const content = document.createElement('div');
