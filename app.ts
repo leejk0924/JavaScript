@@ -1,26 +1,26 @@
-type Store = {
+interface Store {
   currentPage: number;
   feeds: NewsFeed[];
 }
-type News = {
-  id: number;
-  time_age: string;
-  title: string;
-  url: string;
-  user: string;
-  content: string;
+interface News {
+  readonly id: number;
+  readonly time_ago: string;
+  readonly title: string;
+  readonly url: string;
+  readonly user: string;
+  readonly content: string;
 }
-type NewsFeed = News & {
-  comments_count: number;
-  points: number;
+interface NewsFeed extends News {
+  readonly comments_count: number;
+  readonly points: number;
   read?: boolean;
 }
-type NewsDetail=News & {
-  comments: NewsComment[];
+interface NewsDetail extends News {
+  readonly comments: NewsComment[];
 }
-type NewsComment = News & {
-  comments: NewsComment[];
-  level: number;
+interface NewsComment extends News {
+  readonly comments: NewsComment[];
+  readonly level: number;
 }
 
 const container: HTMLElement | null = document.getElementById('root');
@@ -100,7 +100,7 @@ function newsFeed(): void {
       <div class="grid grid-cols-3 text-sm text-gray-500">
         <div><i class="fas fa-user mr-1"></i>${newsFeed[i].user}</div>
         <div><i class="fas fa-heart mr-1"></i>${newsFeed[i].points}</div>
-        <div><i class="far fa-clock mr-1"></i>${newsFeed[i].time_age}</div>
+        <div><i class="far fa-clock mr-1"></i>${newsFeed[i].time_ago}</div>
       </div>
     </div>
   </div>
@@ -180,7 +180,7 @@ function makeComment(comments: NewsComment[]):string {
     <div style="padding-left: ${comment.level * 40}px;" class="mt-4">
       <div class="text-gray-400">
         <i class="fa fa-sort-up mr-2"></i>
-        <strong>${comment.user}</strong> ${comment.time_age}
+        <strong>${comment.user}</strong> ${comment.time_ago}
       </div>
       <p class="text-gray-700">${comment.content}</p>
     </div>      
